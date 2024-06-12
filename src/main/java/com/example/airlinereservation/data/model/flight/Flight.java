@@ -30,6 +30,6 @@ public class Flight {
 	private Airport departureAirport;
 	@OneToOne(cascade = ALL)
 	private Airport arrivalAirport;
-	@OneToMany(cascade = ALL, fetch = EAGER)
+	@OneToMany(cascade = ALL, fetch = EAGER, orphanRemoval = true)
 	private List<FlightInstance> flightInstances;
 }

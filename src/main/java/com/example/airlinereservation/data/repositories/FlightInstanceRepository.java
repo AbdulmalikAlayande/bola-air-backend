@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface FlightInstanceRepository extends JpaRepository<FlightInstance, String> {
 	
@@ -23,4 +25,5 @@ public interface FlightInstanceRepository extends JpaRepository<FlightInstance, 
 	                                               @Param("arrivalTime") LocalDate arrivalTime,
 	                                               @Param("departureTime") LocalDate departureTime);
 	List<FlightInstance> findByStatus(FlightStatus status);
+	Optional<FlightInstance> findByDepartureTimeAndArrivalTime(ZonedDateTime departureTime, ZonedDateTime arrivalTime);
 }

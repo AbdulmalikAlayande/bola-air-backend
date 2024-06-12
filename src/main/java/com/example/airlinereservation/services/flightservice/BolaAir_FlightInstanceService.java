@@ -7,7 +7,7 @@ import com.example.airlinereservation.data.repositories.FlightInstanceRepository
 import com.example.airlinereservation.data.repositories.FlightRepository;
 import com.example.airlinereservation.dtos.Request.CreateFlightInstanceRequest;
 import com.example.airlinereservation.dtos.Response.FlightInstanceResponse;
-import org.modelmapper.Converter;
+import org.json.Property;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.slf4j.Logger;
@@ -37,69 +37,60 @@ public class BolaAir_FlightInstanceService implements FlightInstanceService{
 	private final FlightRepository flightRepository;
 	private final ModelMapper mapper;
 	private final Logger logger = LoggerFactory.getLogger(BolaAir_FlightInstanceService.class);
+	
 	public BolaAir_FlightInstanceService(FlightInstanceRepository flightInstanceRepository, FlightRepository flightRepository, ModelMapper mapper){
 		this.flightInstanceRepository = flightInstanceRepository;
 		this.flightRepository = flightRepository;
-		mapper.addConverter((Converter<CreateFlightInstanceRequest, FlightInstance>) context -> {
-			ZonedDateTime arrivalTime = ZonedDateTime.of(
-					LocalDate.parse(context.getSource().getArrivalDate()),
-					LocalTime.parse(context.getSource().getArrivalTime()),
-					ZoneId.of(context.getSource().getArrivalCityZone())
-			);
-			ZonedDateTime departureTime = ZonedDateTime.of(
-					LocalDate.parse(context.getSource().getArrivalDate()),
-					LocalTime.parse(context.getSource().getArrivalTime()),
-					ZoneId.of(context.getSource().getArrivalCityZone())
-			);
-			context.getDestination().setArrivalTime(arrivalTime);
-			context.getDestination().setDepartureTime(departureTime);
-			return context.getDestination();
-		});
-		mapper.typeMap(FlightInstance.class, FlightInstanceResponse.class)
+		mapper.typeMap(CreateFlightInstanceRequest.class, FlightInstance.class)
+			  .setConverter(context -> {
+				  ZonedDateTime arrivalTime = ZonedDateTime.of(
+						  LocalDate.parse(context.getSource().getArrivalDate()),
+						  LocalTime.parse(context.getSource().getArrivalTime()),
+						  ZoneId.of(context.getSource().getArrivalCityZone())
+				  );
+				  ZonedDateTime departureTime = ZonedDateTime.of(
+						  LocalDate.parse(context.getSource().getDepartureDate()),
+						  LocalTime.parse(context.getSource().getDepartureTime()),
+						  ZoneId.of(context.getSource().getDepartureCityZone())
+				  );
+				  return FlightInstance.builder().departureTime(departureTime).arrivalTime(arrivalTime).build();
+			  });
+		mapper.typeMap(Flight.class, FlightInstanceResponse.class)
 			  .addMappings(mapping -> {
-				  mapping.map(src -> src.getFlight().getArrivalAirport().getAirportAddress(), FlightInstanceResponse::setArrivalAirportAddress);
-				  mapping.map(src -> src.getFlight().getArrivalAirport().getAirportName(), FlightInstanceResponse::setArrivalAirportName);
-				  mapping.map(src -> src.getFlight().getArrivalAirport().getIcaoCode(), FlightInstanceResponse::setArrivalAirportIcaoCode);
-				  mapping.map(src -> src.getFlight().getDepartureAirport().getAirportAddress(), FlightInstanceResponse::setDepartureAirportAddress);
-				  mapping.map(src -> src.getFlight().getDepartureAirport().getAirportName(), FlightInstanceResponse::setDepartureAirportName);
-				  mapping.map(src -> src.getFlight().getDepartureAirport().getIcaoCode(), FlightInstanceResponse::setDepartureAirportIcaoCode);
-				  mapping.map(src -> src.getArrivalTime().toLocalTime().toString(), FlightInstanceResponse::setArrivalTime);
-				  mapping.map(src -> src.getArrivalTime().toLocalDate().toString(), FlightInstanceResponse::setArrivalDate);
-				  mapping.map(src -> src.getDepartureTime().toLocalTime().toString(), FlightInstanceResponse::setDepartureTime);
-				  mapping.map(src -> src.getDepartureTime().toLocalDate().toString(), FlightInstanceResponse::setDepartureDate);
+				  mapping.map(src -> src.getArrivalAirport().getAirportName(), FlightInstanceResponse::setArrivalAirportName);
+				  mapping.map(src -> src.getArrivalAirport().getIcaoCode(), FlightInstanceResponse::setArrivalAirportIcaoCode);
+				  mapping.map(src -> src.getArrivalAirport().getAirportAddress(), FlightInstanceResponse::setArrivalAirportAddress);
+				  mapping.map(src -> src.getDepartureAirport().getAirportName(), FlightInstanceResponse::setDepartureAirportName);
+				  mapping.map(src -> src.getDepartureAirport().getIcaoCode(), FlightInstanceResponse::setDepartureAirportIcaoCode);
+				  mapping.map(src -> src.getDepartureAirport().getAirportAddress(), FlightInstanceResponse::setDepartureAirportAddress);
 			  });
 		this.mapper = mapper;
 	}
-	
-	/*
-	TODO: 12/24/2023
-	 |==|)) If a flight instance still exist and it is neither filled nor en-route yet
-	 don't create a new one, meaning by arrival and departure location, by date and time
-	 |==|)) If a flight instance is to be created let it be spaced by at least 5hrs
-	*/
 	
 	@Override
 	@Transactional(rollbackFor = {Exception.class, SQLException.class})
 	public FlightInstanceResponse createNewInstance(CreateFlightInstanceRequest request){
 		checkIfAFlightStillExists(request);
 		Optional<Flight> foundFlight = flightRepository.findByLocation(request.getArrivalCity(), request.getDepartureCity());
-		FlightInstance savedFlight = foundFlight.map(flight -> {
+		return foundFlight.map(flight -> {
 			FlightInstance flightInstance = mapper.map(request, FlightInstance.class);
-			flightInstance.setFlight(flight);
 			flightInstance.setStatus(SCHEDULED);
 			flightInstance.setFlightNumber(generateFlightNumber());
 			flightInstance.setFlightSeat(new ArrayList<>());
 			FlightInstance savedInstance = flightInstanceRepository.save(flightInstance);
 			flight.getFlightInstances().add(savedInstance);
 			flightRepository.save(flight);
-			return savedInstance;
+			FlightInstanceResponse response = mapper.map(savedInstance, FlightInstanceResponse.class);
+			mapper.map(flight, response);
+			logger.info("{}", response);
+			return response;
 		}).orElseThrow();
-		return mapper.map(savedFlight, FlightInstanceResponse.class);
 	}
 	
 	private void checkIfAFlightStillExists(CreateFlightInstanceRequest request) {
 	
 	}
+	
 	private String generateFlightNumber() {
 		long currentTimeMillis = System.currentTimeMillis();
 		String currentTimeStamp = LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault())
@@ -138,7 +129,12 @@ public class BolaAir_FlightInstanceService implements FlightInstanceService{
 	}
 	
 	private FlightInstanceResponse flightInstanceResponse(FlightInstance flightInstance) {
-		return mapper.map(flightInstance, FlightInstanceResponse.class);
+		FlightInstanceResponse response = mapper.map(flightInstance, FlightInstanceResponse.class);
+		response.setDepartureDate(flightInstance.getDepartureTime().toLocalDate().toString());
+		response.setDepartureTime(flightInstance.getDepartureTime().toLocalTime().toString());
+		response.setArrivalDate(flightInstance.getArrivalTime().toLocalDate().toString());
+		response.setArrivalTime(flightInstance.getArrivalTime().toLocalTime().toString());
+		return response;
 	}
 	
 	@Override
@@ -146,11 +142,11 @@ public class BolaAir_FlightInstanceService implements FlightInstanceService{
 		FlightInstance exampleInstance = FlightInstance.builder().departureTime(departureTime).arrivalTime(arrivalTime).build();
 		Example<FlightInstance> example = Example.of(exampleInstance);
 		Function<FluentQuery.FetchableFluentQuery<FlightInstance>, FlightInstanceResponse> queryFunction = query -> {
-			FlightInstance instance = query.stream()
-					                          .filter(flightInstance -> flightInstance.getDepartureTime() == departureTime && flightInstance.getArrivalTime() == arrivalTime)
-					                          .toList()
-					                          .get(0);
-			return mapper.map(instance, FlightInstanceResponse.class);
+			Optional<FlightInstance> instance = query.stream()
+					                          .filter(flightInstance -> flightInstance.getDepartureTime().equals(departureTime) &&
+																	  flightInstance.getArrivalTime().equals(arrivalTime))
+					                          .findFirst();
+			return mapper.map(instance.orElseThrow(), FlightInstanceResponse.class);
 		};
 		return flightInstanceRepository.findBy(example, queryFunction);
 	}
@@ -160,3 +156,11 @@ public class BolaAir_FlightInstanceService implements FlightInstanceService{
 		flightInstanceRepository.deleteAll();
 	}
 }
+
+/*
+TODO: 12/24/2023
+ |==|)) If a flight instance still exist and it is neither filled nor en-route yet
+ don't create a new one, meaning by arrival and departure location, by date and time
+ |==|)) If a flight instance is to be created let it be spaced by at least 5hrs
+ |==|)) To Make the component cleaner, just add nested DTOs to the DTOs that already existed, That is the only way
+*/

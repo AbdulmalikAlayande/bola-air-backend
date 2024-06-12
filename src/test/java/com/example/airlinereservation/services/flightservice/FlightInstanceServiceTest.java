@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
@@ -32,7 +29,6 @@ class FlightInstanceServiceTest {
 	@BeforeEach
 	@SneakyThrows
 	void startEachTestWith() {
-		flightInstanceService.removeAll();
 		flightService.removeAll();
 		flightService.addFlight(buildFlight());
 		response = flightInstanceService.createNewInstance(buildInstance());
@@ -49,12 +45,12 @@ class FlightInstanceServiceTest {
 					LocalDate.of(2024, 7, 6),
 					LocalTime.of(7, 0, 0),
 					ZoneId.of("Africa/Lagos")
-				),
+				).withZoneSameInstant(ZoneOffset.UTC),
 				ZonedDateTime.of(
 					LocalDate.of(2024, 7, 6),
 					LocalTime.of(18, 0, 0),
 					ZoneId.of("Africa/Accra")
-				)
+				).withZoneSameInstant(ZoneOffset.UTC)
 		)).isNotNull();
 	}
 	

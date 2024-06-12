@@ -26,6 +26,5 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
 		and f.departureCity = :departureCity
 		""")
 	Optional<Flight> findByLocation(String arrivalCity, String departureCity);
-	
 	boolean existsByArrivalCityAndDepartureCity(String arrivalCity, String departureCity);
 }
