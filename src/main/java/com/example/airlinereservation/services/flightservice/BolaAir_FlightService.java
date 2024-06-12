@@ -10,6 +10,9 @@ import com.example.airlinereservation.dtos.Response.FlightResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,7 @@ public class BolaAir_FlightService implements FlightService{
 	private FlightRepository flightRepository;
 	private AirportRepository airportRepository;
 	private ModelMapper mapper;
+	private final Logger logger = LoggerFactory.getLogger(BolaAir_FlightService.class);
 	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
@@ -34,7 +38,6 @@ public class BolaAir_FlightService implements FlightService{
 		checkIfFlightExists(flightRequest.getArrivalCity(), flightRequest.getDepartureCity());
 		try{
 			Flight mappedFlight = mapper.map(flightRequest, Flight.class);
-			
 			Airport arrivalAirport = mapper.map(flightRequest.getArrivalAirportRequest(), Airport.class);
 			Airport savedArrivalAirport = airportRepository.save(arrivalAirport);
 			
@@ -46,12 +49,11 @@ public class BolaAir_FlightService implements FlightService{
 			mappedFlight.setAirline(BOLA_AIR);
 			mappedFlight.setFlightInstances(new ArrayList<>());
 			mappedFlight.setEstimatedFlightDurationInMinutes(flightRequest.getEstimatedFlightDurationInMinutes());
-			
 			Flight savedFlight = flightRepository.save(mappedFlight);
 			return buildFlightResponse(savedFlight);
-		} catch (InvocationTargetException | InstantiationException |
-		         NoSuchMethodException | IllegalAccessException exception) {
-			System.out.println(exception.getMessage());
+		}
+		catch (InvocationTargetException | InstantiationException | NoSuchMethodException | IllegalAccessException exception) {
+			logger.error("{}", exception.getMessage());
 			throw new InvalidRequestException(exception.getMessage(), exception);
 		}
 	}
@@ -93,7 +95,7 @@ public class BolaAir_FlightService implements FlightService{
 	
 	@Override
 	public FlightResponse getFlightByArrivalAndDepartureLocation(String arrivalCity, String departureCity) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvalidRequestException {
-		Optional<Flight> foundFlight = flightRepository.findByArrivalCityAndDepartureCity(arrivalCity, departureCity);
+		Optional<Flight> foundFlight = flightRepository.findByLocation(arrivalCity, departureCity);
 		if (foundFlight.isPresent())
 			return buildFlightResponse(foundFlight.get());
 		throw new InvalidRequestException("Flight Not Found");

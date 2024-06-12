@@ -1,24 +1,37 @@
 package com.example.airlinereservation.dtos.Request;
 
-import lombok.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateFlightInstanceRequest {
-	
-	private LocalDate arrivalDate;
-	private LocalDate departureDate;
-	private LocalTime departureTime;
-	private LocalTime arrivalTime;
-	@NonNull
+	/**
+	 Can be in either UTC, GMT or Time Zone Identifier format
+	**/
+	@NotEmpty
+	private String arrivalCityZone;
+	/**
+	 Can be in either UTC, GMT or Time Zone Identifier format
+	**/
+	@NotEmpty
+	private String departureCityZone;
+	@NotEmpty
+	private String departureTime;
+	@NotEmpty
+	private String arrivalTime;
+	@NotEmpty
+	private String arrivalDate;
+	@NotEmpty
+	private String departureDate;
+	@NotEmpty
 	private String arrivalCity;
-	@NonNull
+	@NotEmpty
 	private String departureCity;
 	
 }

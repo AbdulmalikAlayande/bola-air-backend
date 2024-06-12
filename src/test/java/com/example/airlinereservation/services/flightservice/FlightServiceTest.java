@@ -1,6 +1,5 @@
 package com.example.airlinereservation.services.flightservice;
 
-import com.example.airlinereservation.data.model.enums.Destinations;
 import com.example.airlinereservation.dtos.Request.AirportRequest;
 import com.example.airlinereservation.dtos.Request.FlightRequest;
 import com.example.airlinereservation.dtos.Response.FlightResponse;
@@ -26,7 +25,6 @@ public class FlightServiceTest {
 	public void startEachTestWith(){
 		flightService.removeAll();
 		savedFlightResponse = flightService.addFlight(buildFlightRequest());
-		
 	}
 	
 	@Test

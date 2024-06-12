@@ -75,7 +75,6 @@ class CustomerServiceTest {
 		assertThat(customerResponse).isNotNull();
 	}
 	
-	@SneakyThrows
 	@Test void testThatOtpIsGenerated_AndSentToTheUserToActivateTheirAccount(){
 	}
 	

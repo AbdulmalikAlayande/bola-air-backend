@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 @SpringBootTest
 class FlightInstanceServiceTest {
@@ -41,14 +44,21 @@ class FlightInstanceServiceTest {
 	public void createNewFlightInstance_NewFlightIsCreatedTest(){
 		assertThat(response).isNotNull();
 		assertThat(flightInstanceService.findAllBy(FlightStatus.SCHEDULED).size()).isGreaterThan(ZERO);
-		assertThat(response.getArrivalAirportIcaoCode()).isNotNull();
-		assertThat(response.getDepartureAirportIcaoCode()).isNotNull();
-		assertThat(response.getArrivalDate()).isNotNull();
-		assertThat(response.getDepartureDate()).isNotNull();
+		assertThat(flightInstanceService.findBy(
+				ZonedDateTime.of(
+					LocalDate.of(2024, 7, 6),
+					LocalTime.of(7, 0, 0),
+					ZoneId.of("Africa/Lagos")
+				),
+				ZonedDateTime.of(
+					LocalDate.of(2024, 7, 6),
+					LocalTime.of(18, 0, 0),
+					ZoneId.of("Africa/Accra")
+				)
+		)).isNotNull();
 	}
 	
 	@Test
-	@SneakyThrows
 	public void createNewFlightInstance_ProperFlightSpacingIsApplied_ToMaintainSafeDistanceBetweenConsecutiveFlights(){
 	
 	}
@@ -66,17 +76,27 @@ class FlightInstanceServiceTest {
 	
 	private CreateFlightInstanceRequest buildInstance() {
 		return CreateFlightInstanceRequest.builder()
-				       .arrivalCity("Rivers")
 				       .departureCity("Abuja")
+				       .departureCityZone("Africa/Lagos")
+				       .departureTime("07:00:00")
+				       .departureDate("2024-07-06")
+				       .arrivalCity("Accra")
+				       .arrivalCityZone("Africa/Accra")
+				       .arrivalTime("18:00:00")
+				       .arrivalDate("2024-07-06")
 				       .build();
 	}
 	
 	private FlightRequest buildFlight() {
 		return FlightRequest.builder()
 				       .estimatedFlightDurationInMinutes(360)
-				       .arrivalAirportRequest(buildAirportRequest("Oakland Airport", "U.S.A", "3456", "45678"))
-				       .departureAirportRequest(buildAirportRequest("Orlando Airport", "U.S.A", "4598", "0237"))
-				       .arrivalCity("Rivers")
+				       .departureAirportRequest(
+							   buildAirportRequest("Nnamdi Azikiwe International  Airport", "Nigeria", "3456", "45678")
+				       )
+				       .arrivalAirportRequest(
+							   buildAirportRequest("Kotoka International Airport", "Ghana", "4598", "0237")
+				       )
+				       .arrivalCity("Accra")
 				       .departureCity("Abuja")
 				       .build();
 	}

@@ -15,12 +15,12 @@ public interface FlightInstanceRepository extends JpaRepository<FlightInstance, 
        """
        select f from FlightInstance f
        where f.status = :status
-       and f.arrivalDate = :arrivalDate
-       and f.departureDate = :departureDate
+       and f.arrivalTime = :arrivalTime
+       and f.departureTime = :departureTime
        """
 	)
 	List<FlightInstance> findAvailableInstances(@Param("status") FlightStatus status,
-	                                               @Param("arrivalDate")LocalDate arrivalDate,
-	                                               @Param("departureDate") LocalDate departureDate);
+	                                               @Param("arrivalTime") LocalDate arrivalTime,
+	                                               @Param("departureTime") LocalDate departureTime);
 	List<FlightInstance> findByStatus(FlightStatus status);
 }

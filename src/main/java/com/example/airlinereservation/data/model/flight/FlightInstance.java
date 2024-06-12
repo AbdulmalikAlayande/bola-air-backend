@@ -3,15 +3,10 @@ package com.example.airlinereservation.data.model.flight;
 import com.example.airlinereservation.data.model.aircraft.AirCraft;
 import com.example.airlinereservation.data.model.enums.FlightStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
@@ -20,6 +15,7 @@ import static jakarta.persistence.EnumType.STRING;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class FlightInstance {
 	
 	@Id
@@ -28,13 +24,11 @@ public class FlightInstance {
 	private boolean isFullyBooked;
 	@Column(unique = true)
 	@NonNull
-	private Long flightNumber;
+	private String flightNumber;
 	@NotBlank
-	private LocalTime departureTime;
-	private LocalTime arrivalTime;
+	private ZonedDateTime departureTime;
 	@NotBlank
-	private LocalDate arrivalDate;
-	private LocalDate departureDate;
+	private ZonedDateTime arrivalTime;
 	@NotBlank
 	private int baggageAllowance;
 	@OneToOne
