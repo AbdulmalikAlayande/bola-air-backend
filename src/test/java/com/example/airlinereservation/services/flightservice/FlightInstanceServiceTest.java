@@ -1,11 +1,14 @@
 package com.example.airlinereservation.services.flightservice;
 
 import com.example.airlinereservation.data.model.enums.FlightStatus;
-import com.example.airlinereservation.dtos.Request.AirportRequest;
-import com.example.airlinereservation.dtos.Request.CreateFlightInstanceRequest;
-import com.example.airlinereservation.dtos.Request.FlightRequest;
-import com.example.airlinereservation.dtos.Response.FlightInstanceResponse;
+import com.example.airlinereservation.dtos.request.AirportRequest;
+import com.example.airlinereservation.dtos.request.CreateFlightInstanceRequest;
+import com.example.airlinereservation.dtos.request.FlightRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightInstanceResponse;
 import lombok.SneakyThrows;
+
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +45,7 @@ class FlightInstanceServiceTest {
 		assertThat(flightInstanceService.findAllBy(FlightStatus.SCHEDULED).size()).isGreaterThan(ZERO);
 		assertThat(flightInstanceService.findBy(
 				ZonedDateTime.of(
-					LocalDate.of(2024, 7, 6),
+						LocalDate.from(LocalDate.now().atStartOfDay().plusHours(LocalTime.now().getHour() + 5)),
 					LocalTime.of(7, 0, 0),
 					ZoneId.of("Africa/Lagos")
 				).withZoneSameInstant(ZoneOffset.UTC),
@@ -55,8 +58,14 @@ class FlightInstanceServiceTest {
 	}
 	
 	@Test
+	@SneakyThrows
 	public void createNewFlightInstance_ProperFlightSpacingIsApplied_ToMaintainSafeDistanceBetweenConsecutiveFlights(){
-	
+		FlightInstanceResponse response1 = flightInstanceService.createNewInstance(CreateFlightInstanceRequest.builder()
+				                                                                           .departureCity("Abuja")
+				                                                                           .departureCityZone("Africa/Lagos")
+				                                                                           .arrivalCity("Accra")
+				                                                                           .arrivalCityZone("Africa/Accra")
+				                                                                           .build());
 	}
 	
 	@Test void createNewFlightInstance_AssignAircraftToFlightInstanceTest(){
@@ -74,12 +83,8 @@ class FlightInstanceServiceTest {
 		return CreateFlightInstanceRequest.builder()
 				       .departureCity("Abuja")
 				       .departureCityZone("Africa/Lagos")
-				       .departureTime("07:00:00")
-				       .departureDate("2024-07-06")
 				       .arrivalCity("Accra")
 				       .arrivalCityZone("Africa/Accra")
-				       .arrivalTime("18:00:00")
-				       .arrivalDate("2024-07-06")
 				       .build();
 	}
 	

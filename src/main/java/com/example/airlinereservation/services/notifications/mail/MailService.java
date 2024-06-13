@@ -1,7 +1,7 @@
 package com.example.airlinereservation.services.notifications.mail;
 
-import com.example.airlinereservation.dtos.Request.NotificationRequest;
-import com.example.airlinereservation.dtos.Response.NotificationResponse;
+import com.example.airlinereservation.dtos.request.NotificationRequest;
+import com.example.airlinereservation.dtos.response.NotificationResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import org.springframework.http.ResponseEntity;
 

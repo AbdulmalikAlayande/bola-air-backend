@@ -1,7 +1,7 @@
 package com.example.airlinereservation.services.flightformservice;
-import com.example.airlinereservation.dtos.Request.FlightFormRequest;
-import com.example.airlinereservation.dtos.Request.FlightRequest;
-import com.example.airlinereservation.dtos.Response.FlightFormResponse;
+import com.example.airlinereservation.dtos.request.FlightFormRequest;
+import com.example.airlinereservation.dtos.request.FlightRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightFormResponse;
 
 import java.util.List;
 import java.util.Optional;

@@ -2,8 +2,8 @@ package com.example.airlinereservation.services.userservice;
 
 import com.example.airlinereservation.data.model.enums.Destinations;
 import com.example.airlinereservation.data.model.persons.CrewMember;
-import com.example.airlinereservation.dtos.Response.CreateCrewMemberResponse;
-import com.example.airlinereservation.dtos.Response.CrewMemberResponse;
+import com.example.airlinereservation.dtos.response.users.CreateCrewMemberResponse;
+import com.example.airlinereservation.dtos.response.users.CrewMemberResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

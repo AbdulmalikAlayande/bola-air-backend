@@ -1,8 +1,8 @@
 package com.example.airlinereservation.services.notifications;
 
 import com.example.airlinereservation.data.model.notifications.Recipients;
-import com.example.airlinereservation.dtos.Request.NotificationRequest;
-import com.example.airlinereservation.dtos.Response.NotificationResponse;
+import com.example.airlinereservation.dtos.request.NotificationRequest;
+import com.example.airlinereservation.dtos.response.NotificationResponse;
 import com.example.airlinereservation.services.notifications.mail.MailService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;

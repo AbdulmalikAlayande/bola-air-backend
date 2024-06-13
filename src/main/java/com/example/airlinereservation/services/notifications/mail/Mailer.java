@@ -1,8 +1,8 @@
 package com.example.airlinereservation.services.notifications.mail;
 
 import com.example.airlinereservation.config.EmailValidationConfig;
-import com.example.airlinereservation.dtos.Request.NotificationRequest;
-import com.example.airlinereservation.dtos.Response.NotificationResponse;
+import com.example.airlinereservation.dtos.request.NotificationRequest;
+import com.example.airlinereservation.dtos.response.NotificationResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

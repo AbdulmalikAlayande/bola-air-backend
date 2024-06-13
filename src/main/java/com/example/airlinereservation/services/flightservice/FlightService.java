@@ -1,11 +1,10 @@
 package com.example.airlinereservation.services.flightservice;
 
-import com.example.airlinereservation.data.model.enums.Destinations;
 import com.example.airlinereservation.data.model.flight.Flight;
-import com.example.airlinereservation.dtos.Request.FlightUpdateRequest;
-import com.example.airlinereservation.dtos.Response.FlightResponse;
+import com.example.airlinereservation.dtos.request.FlightUpdateRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
-import com.example.airlinereservation.dtos.Request.FlightRequest;
+import com.example.airlinereservation.dtos.request.FlightRequest;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;

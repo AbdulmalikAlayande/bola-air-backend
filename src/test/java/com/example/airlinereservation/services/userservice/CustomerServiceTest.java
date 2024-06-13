@@ -1,10 +1,10 @@
 package com.example.airlinereservation.services.userservice;
 
-import com.example.airlinereservation.dtos.Request.LoginRequest;
-import com.example.airlinereservation.dtos.Request.CustomerRequest;
-import com.example.airlinereservation.dtos.Request.UpdateRequest;
-import com.example.airlinereservation.dtos.Response.LoginResponse;
-import com.example.airlinereservation.dtos.Response.CustomerResponse;
+import com.example.airlinereservation.dtos.request.LoginRequest;
+import com.example.airlinereservation.dtos.request.CustomerRequest;
+import com.example.airlinereservation.dtos.request.UpdateRequest;
+import com.example.airlinereservation.dtos.response.LoginResponse;
+import com.example.airlinereservation.dtos.response.users.CustomerResponse;
 import com.example.airlinereservation.exceptions.FailedRegistrationException;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import com.example.airlinereservation.exceptions.LoginFailedException;

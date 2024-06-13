@@ -20,7 +20,7 @@ public class Flight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
-	private long estimatedFlightDurationInMinutes;
+	private long durationInHrs;
 	@NotBlank
 	private String airline;
 	private String arrivalCity;

@@ -2,8 +2,8 @@ package com.example.airlinereservation.services.aircraftsservice;
 
 import com.example.airlinereservation.data.model.aircraft.AirCraft;
 import com.example.airlinereservation.data.model.enums.Destinations;
-import com.example.airlinereservation.dtos.Request.AirCraftRequest;
-import com.example.airlinereservation.dtos.Response.AirCraftResponse;
+import com.example.airlinereservation.dtos.request.AirCraftRequest;
+import com.example.airlinereservation.dtos.response.AirCraftResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class AirCraftManagementServiceTest {

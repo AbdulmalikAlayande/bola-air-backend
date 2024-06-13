@@ -6,24 +6,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface FlightInstanceRepository extends JpaRepository<FlightInstance, String> {
 	
-	@Query(
-       """
-       select f from FlightInstance f
-       where f.status = :status
-       and f.arrivalTime = :arrivalTime
-       and f.departureTime = :departureTime
-       """
-	)
-	List<FlightInstance> findAvailableInstances(@Param("status") FlightStatus status,
-	                                               @Param("arrivalTime") LocalDate arrivalTime,
-	                                               @Param("departureTime") LocalDate departureTime);
 	List<FlightInstance> findByStatus(FlightStatus status);
-	Optional<FlightInstance> findByDepartureTimeAndArrivalTime(ZonedDateTime departureTime, ZonedDateTime arrivalTime);
+	
+	@Query("""
+			SELECT fi FROM FlightInstance fi
+			WHERE fi.departureTime <= :currentDateTime
+			AND fi.status = 'EN_ROUTE'
+			ORDER BY fi.departureTime DESC
+			""")
+	Optional<FlightInstance> findLastMovedFlight(@Param("currentDateTime") ZonedDateTime currentDateTime);
+	
+	
 }

@@ -1,10 +1,10 @@
 package com.example.airlinereservation.services.userservice;
 
 import com.example.airlinereservation.data.model.persons.CrewMember;
-import com.example.airlinereservation.dtos.Request.CreateCrewMemberRequest;
-import com.example.airlinereservation.dtos.Request.UpdateRequest;
-import com.example.airlinereservation.dtos.Response.CreateCrewMemberResponse;
-import com.example.airlinereservation.dtos.Response.CrewMemberResponse;
+import com.example.airlinereservation.dtos.request.CreateCrewMemberRequest;
+import com.example.airlinereservation.dtos.request.UpdateRequest;
+import com.example.airlinereservation.dtos.response.users.CreateCrewMemberResponse;
+import com.example.airlinereservation.dtos.response.users.CrewMemberResponse;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

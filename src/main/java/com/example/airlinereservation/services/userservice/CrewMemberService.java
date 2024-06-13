@@ -2,12 +2,12 @@ package com.example.airlinereservation.services.userservice;
 
 import com.example.airlinereservation.data.model.flight.FlightInstance;
 import com.example.airlinereservation.data.model.persons.CrewMember;
-import com.example.airlinereservation.dtos.Request.CreateCrewMemberRequest;
-import com.example.airlinereservation.dtos.Request.UpdateRequest;
-import com.example.airlinereservation.dtos.Request.ViewFlightScheduleRequest;
-import com.example.airlinereservation.dtos.Response.CreateCrewMemberResponse;
-import com.example.airlinereservation.dtos.Response.CrewMemberResponse;
-import com.example.airlinereservation.dtos.Response.FlightScheduleResponse;
+import com.example.airlinereservation.dtos.request.CreateCrewMemberRequest;
+import com.example.airlinereservation.dtos.request.UpdateRequest;
+import com.example.airlinereservation.dtos.request.ViewFlightScheduleRequest;
+import com.example.airlinereservation.dtos.response.users.CreateCrewMemberResponse;
+import com.example.airlinereservation.dtos.response.users.CrewMemberResponse;
+import com.example.airlinereservation.dtos.response.flight.FlightScheduleResponse;
 import com.example.airlinereservation.exceptions.EmptyFieldException;
 import com.example.airlinereservation.exceptions.FieldInvalidException;
 import com.example.airlinereservation.exceptions.InvalidRequestException;

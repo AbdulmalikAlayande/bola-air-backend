@@ -4,15 +4,14 @@ import com.example.airlinereservation.data.model.Airport;
 import com.example.airlinereservation.data.model.flight.Flight;
 import com.example.airlinereservation.data.repositories.AirportRepository;
 import com.example.airlinereservation.data.repositories.FlightRepository;
-import com.example.airlinereservation.dtos.Request.FlightRequest;
-import com.example.airlinereservation.dtos.Request.FlightUpdateRequest;
-import com.example.airlinereservation.dtos.Response.FlightResponse;
+import com.example.airlinereservation.dtos.request.FlightRequest;
+import com.example.airlinereservation.dtos.request.FlightUpdateRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +47,7 @@ public class BolaAir_FlightService implements FlightService{
 			mappedFlight.setDepartureAirport(savedDepartureAirport);
 			mappedFlight.setAirline(BOLA_AIR);
 			mappedFlight.setFlightInstances(new ArrayList<>());
-			mappedFlight.setEstimatedFlightDurationInMinutes(flightRequest.getEstimatedFlightDurationInMinutes());
+			mappedFlight.setDurationInHrs(flightRequest.getEstimatedFlightDurationInMinutes());
 			Flight savedFlight = flightRepository.save(mappedFlight);
 			return buildFlightResponse(savedFlight);
 		}
@@ -68,13 +67,13 @@ public class BolaAir_FlightService implements FlightService{
 	private FlightResponse buildFlightResponse(Flight savedFlight) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		FlightResponse response = FlightResponse.class.getDeclaredConstructor().newInstance();
 		mapper.map(savedFlight, response);
-		response.setArrivalAirportAddress(savedFlight.getArrivalAirport().getAirportAddress());
+		response.setArrivalAirportAddress(savedFlight.getArrivalAirport().getAddress());
 		response.setArrivalAirportCode(savedFlight.getArrivalAirport().getIcaoCode());
-		response.setArrivalAirportName(savedFlight.getArrivalAirport().getAirportName());
+		response.setArrivalAirportName(savedFlight.getArrivalAirport().getName());
 		
-		response.setDepartureAirportAddress(savedFlight.getDepartureAirport().getAirportAddress());
+		response.setDepartureAirportAddress(savedFlight.getDepartureAirport().getAddress());
 		response.setDepartureAirportCode(savedFlight.getDepartureAirport().getIcaoCode());
-		response.setDepartureAirportName(savedFlight.getDepartureAirport().getAirportName());
+		response.setDepartureAirportName(savedFlight.getDepartureAirport().getName());
 		return response;
 	}
 	

@@ -2,12 +2,10 @@ package com.example.airlinereservation.services.aircraftsservice;
 
 import com.example.airlinereservation.data.model.aircraft.AirCraft;
 import com.example.airlinereservation.data.model.enums.Destinations;
-import com.example.airlinereservation.dtos.Request.AirCraftRequest;
-import com.example.airlinereservation.dtos.Response.AirCraftResponse;
+import com.example.airlinereservation.dtos.request.AirCraftRequest;
+import com.example.airlinereservation.dtos.response.AirCraftResponse;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface AirCraftManagementService {

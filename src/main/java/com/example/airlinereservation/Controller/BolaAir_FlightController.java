@@ -1,8 +1,8 @@
 package com.example.airlinereservation.Controller;
 
-import com.example.airlinereservation.dtos.Request.FlightRequest;
-import com.example.airlinereservation.dtos.Response.ApiResponse;
-import com.example.airlinereservation.dtos.Response.FlightResponse;
+import com.example.airlinereservation.dtos.request.FlightRequest;
+import com.example.airlinereservation.dtos.response.ApiResponse;
+import com.example.airlinereservation.dtos.response.flight.FlightResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import com.example.airlinereservation.services.flightservice.FlightService;
 import jakarta.validation.Valid;

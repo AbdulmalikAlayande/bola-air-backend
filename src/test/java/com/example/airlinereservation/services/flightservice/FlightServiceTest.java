@@ -1,8 +1,8 @@
 package com.example.airlinereservation.services.flightservice;
 
-import com.example.airlinereservation.dtos.Request.AirportRequest;
-import com.example.airlinereservation.dtos.Request.FlightRequest;
-import com.example.airlinereservation.dtos.Response.FlightResponse;
+import com.example.airlinereservation.dtos.request.AirportRequest;
+import com.example.airlinereservation.dtos.request.FlightRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;

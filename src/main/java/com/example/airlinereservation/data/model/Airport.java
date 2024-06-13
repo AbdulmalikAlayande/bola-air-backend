@@ -16,11 +16,11 @@ public class Airport {
 	@Id
 	@GeneratedValue(strategy = UUID)
 	private String id;
-	private String airportName;
+	private String name;
 	private String icaoCode;
 	private String iataCode;
 	private String isoCountryCode;
-	private String airportAddress;
+	private String address;
 	private Long longitude;
 	private Long latitude;
 }

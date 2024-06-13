@@ -2,11 +2,11 @@
 package com.example.airlinereservation.services.userservice;
 
 
-import com.example.airlinereservation.dtos.Request.AdminInvitationRequest;
-import com.example.airlinereservation.dtos.Request.CreateAdminRequest;
-import com.example.airlinereservation.dtos.Response.AdminInvitationResponse;
-import com.example.airlinereservation.dtos.Response.CreateAdminResponse;
-import com.example.airlinereservation.dtos.Response.GetUserResponse;
+import com.example.airlinereservation.dtos.request.AdminInvitationRequest;
+import com.example.airlinereservation.dtos.request.CreateAdminRequest;
+import com.example.airlinereservation.dtos.response.users.AdminInvitationResponse;
+import com.example.airlinereservation.dtos.response.users.CreateAdminResponse;
+import com.example.airlinereservation.dtos.response.users.GetUserResponse;
 import com.example.airlinereservation.exceptions.FieldInvalidException;
 import com.example.airlinereservation.exceptions.UserNotFoundException;
 import lombok.SneakyThrows;

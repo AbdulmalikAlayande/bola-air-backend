@@ -34,4 +34,10 @@ public final class Constants {
 	public static final String SESSION_NOT_EXHAUSTED_MESSAGE = "Your session has not expired";
 	public static final String UPDATE_NOT_COMPLETED = "Update could not be completed";
 	public static final String INVALID_DESTINATION = "Invalid Destination";
+	public static final String FIELD_CANNOT_BE_EMPTY = "Field cannot be blank empty";
+	public static final String FLIGHT_DOES_NOT_EXIST = "Flight from %s to %s does not exist";
+	public static final String SCHEDULED_UNFILLED_FLIGHT_INSTANCE_STILL_EXIST = "A flight instance still exist and it is neither filled nor en-route yet";
+	
+	
+	
 }

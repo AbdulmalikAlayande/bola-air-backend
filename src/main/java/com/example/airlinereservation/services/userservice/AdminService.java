@@ -1,10 +1,14 @@
 package com.example.airlinereservation.services.userservice;
 
-import com.example.airlinereservation.dtos.Request.AdminInvitationRequest;
-import com.example.airlinereservation.dtos.Request.CreateAdminRequest;
-import com.example.airlinereservation.dtos.Request.CreateCrewMemberRequest;
-import com.example.airlinereservation.dtos.Request.FlightRequest;
-import com.example.airlinereservation.dtos.Response.*;
+import com.example.airlinereservation.dtos.request.AdminInvitationRequest;
+import com.example.airlinereservation.dtos.request.CreateAdminRequest;
+import com.example.airlinereservation.dtos.request.CreateCrewMemberRequest;
+import com.example.airlinereservation.dtos.request.FlightRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightResponse;
+import com.example.airlinereservation.dtos.response.users.AdminInvitationResponse;
+import com.example.airlinereservation.dtos.response.users.CreateAdminResponse;
+import com.example.airlinereservation.dtos.response.users.CreateCrewMemberResponse;
+import com.example.airlinereservation.dtos.response.users.GetUserResponse;
 import com.example.airlinereservation.exceptions.EmptyFieldException;
 import com.example.airlinereservation.exceptions.FailedRegistrationException;
 import com.example.airlinereservation.exceptions.FieldInvalidException;

@@ -1,8 +1,8 @@
 package com.example.airlinereservation.services.flightservice;
 
 import com.example.airlinereservation.data.model.enums.FlightStatus;
-import com.example.airlinereservation.dtos.Request.CreateFlightInstanceRequest;
-import com.example.airlinereservation.dtos.Response.FlightInstanceResponse;
+import com.example.airlinereservation.dtos.request.CreateFlightInstanceRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightInstanceResponse;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
 
 import java.lang.reflect.InvocationTargetException;

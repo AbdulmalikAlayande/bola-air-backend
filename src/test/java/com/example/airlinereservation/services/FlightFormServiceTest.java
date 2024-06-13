@@ -6,9 +6,9 @@ import com.example.airlinereservation.services.userservice.CustomerService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import com.example.airlinereservation.data.model.flight.Flight;
-import com.example.airlinereservation.dtos.Request.BookingRequest;
-import com.example.airlinereservation.dtos.Request.FlightFormRequest;
-import com.example.airlinereservation.dtos.Request.CustomerRequest;
+import com.example.airlinereservation.dtos.request.BookingRequest;
+import com.example.airlinereservation.dtos.request.FlightFormRequest;
+import com.example.airlinereservation.dtos.request.CustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

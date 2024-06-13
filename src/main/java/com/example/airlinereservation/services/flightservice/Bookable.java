@@ -3,8 +3,8 @@ package com.example.airlinereservation.services.flightservice;
 import com.example.airlinereservation.data.model.flight.Flight;
 import com.example.airlinereservation.data.model.Passenger;
 import com.example.airlinereservation.exceptions.InvalidRequestException;
-import com.example.airlinereservation.dtos.Request.BookingRequest;
-import com.example.airlinereservation.dtos.Response.FlightResponse;
+import com.example.airlinereservation.dtos.request.BookingRequest;
+import com.example.airlinereservation.dtos.response.flight.FlightResponse;
 
 public interface Bookable {
 	Flight bookFlight(BookingRequest bookingRequest) throws InvalidRequestException;

@@ -1,7 +1,6 @@
 package com.example.airlinereservation.services.flightservice;
 
 import com.example.airlinereservation.data.model.*;
-import com.example.airlinereservation.data.model.enums.Destinations;
 import com.example.airlinereservation.data.model.enums.PaymentMethod;
 import com.example.airlinereservation.data.model.enums.PaymentStatus;
 import com.example.airlinereservation.data.model.enums.Price;
@@ -14,8 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.example.airlinereservation.dtos.Request.BookingRequest;
-import com.example.airlinereservation.dtos.Request.CustomerRequest;
+import com.example.airlinereservation.dtos.request.BookingRequest;
+import com.example.airlinereservation.dtos.request.CustomerRequest;
 
 import java.math.BigInteger;
 

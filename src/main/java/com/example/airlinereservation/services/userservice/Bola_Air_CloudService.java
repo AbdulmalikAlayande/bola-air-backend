@@ -3,7 +3,7 @@ package com.example.airlinereservation.services.userservice;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Uploader;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.airlinereservation.dtos.Response.ApiResponse;
+import com.example.airlinereservation.dtos.response.ApiResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

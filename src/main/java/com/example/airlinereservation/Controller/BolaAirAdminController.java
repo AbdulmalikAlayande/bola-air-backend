@@ -1,10 +1,10 @@
 package com.example.airlinereservation.Controller;
 
-import com.example.airlinereservation.dtos.Request.AdminInvitationRequest;
-import com.example.airlinereservation.dtos.Request.CreateAdminRequest;
-import com.example.airlinereservation.dtos.Response.AdminInvitationResponse;
-import com.example.airlinereservation.dtos.Response.ApiResponse;
-import com.example.airlinereservation.dtos.Response.CreateAdminResponse;
+import com.example.airlinereservation.dtos.request.AdminInvitationRequest;
+import com.example.airlinereservation.dtos.request.CreateAdminRequest;
+import com.example.airlinereservation.dtos.response.users.AdminInvitationResponse;
+import com.example.airlinereservation.dtos.response.ApiResponse;
+import com.example.airlinereservation.dtos.response.users.CreateAdminResponse;
 import com.example.airlinereservation.exceptions.EmptyFieldException;
 import com.example.airlinereservation.exceptions.FailedRegistrationException;
 import com.example.airlinereservation.exceptions.FieldInvalidException;

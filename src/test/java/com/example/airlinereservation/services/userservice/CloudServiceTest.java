@@ -1,6 +1,6 @@
 package com.example.airlinereservation.services.userservice;
 
-import com.example.airlinereservation.dtos.Response.ApiResponse;
+import com.example.airlinereservation.dtos.response.ApiResponse;
 import com.example.airlinereservation.utils.Constants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

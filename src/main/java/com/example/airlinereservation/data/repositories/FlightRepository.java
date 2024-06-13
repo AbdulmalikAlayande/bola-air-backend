@@ -15,11 +15,11 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
 	
 	@Query("""
         select f from Flight f
-        where f.arrivalAirport.airportName = :arrivalAirportName
-        and f.departureAirport.airportName = :departureAirportName
+        where f.arrivalAirport.name = :name
+        and f.departureAirport.name = :name
         """)
-	Optional<Flight> findByArrivalAndDepartureAirport(@Param("arrivalAirportName") String arrivalAirportName,
-	                                                          @Param("departureAirportName") String departureAirportName);
+	Optional<Flight> findByArrivalAndDepartureAirport(@Param("name") String arrivalAirportName,
+	                                                          @Param("name") String departureAirportName);
 	@Query("""
 		select f from Flight f
 		where f.arrivalCity = :arrivalCity

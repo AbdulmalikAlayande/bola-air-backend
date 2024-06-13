@@ -1,7 +1,7 @@
 package com.example.airlinereservation.services.aircraftsservice;
 
-import com.example.airlinereservation.dtos.Request.AirCraftRequest;
-import com.example.airlinereservation.dtos.Response.AirCraftResponse;
+import com.example.airlinereservation.dtos.request.AirCraftRequest;
+import com.example.airlinereservation.dtos.response.AirCraftResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
